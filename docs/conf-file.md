@@ -1,4 +1,4 @@
-### Properties of configuration (.conf) file :
+### Properties of *.conf* file :
 
 * Plain text file.
 * Open/edit with any text-editor.
@@ -10,9 +10,9 @@
 
 **<*key*>*value*;**
 
-*Text between left chevron ' **<** ' and right chevron ' **>** ' is consider key string.*
+*Text between left chevron ' **<** ' and right chevron ' **>** ' is assigned as key.*
 
-*Text between right chevron ' **>** ' and semi colon ' **;** ' is consider value string.*
+*Text between right chevron ' **>** ' and semi colon ' **;** ' is assigned as value.*
 
 ------ 
 
@@ -21,6 +21,8 @@
 **<*option1*>*off*;**
 
 **<*option2*>*on*;**
+
+***. . .***
 
 `getConfigKey(1)` returns first element of key. i.e The '*option1*' string.
 
