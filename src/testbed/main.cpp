@@ -14,10 +14,10 @@ int main(int argc, char **argv){
 			//app.showFormattedDataAll(); //Displays stored vector
 			std::cout<<app.getConfigKey(1);
 			std::cout<<" = ";
-			std::cout<<app.getConfigValue(1)<<endl;
+			std::cout<<app.getConfigValue(1)<<std::endl;
 			std::cout<<app.getConfigKey(2);
 			std::cout<<" = ";
-			std::cout<<app.getConfigValue(2)<<endl;
+			std::cout<<app.getConfigValue(2)<<std::endl;
 		}
 	}
 	return 0;
