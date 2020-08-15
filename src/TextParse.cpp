@@ -11,6 +11,7 @@ bool TextParse::loadFile(){
 	char ch;
 	fileIn.open(configFile);
 	if(fileIn){
+		buffer.clear(); //clears previous data when loadfile() called more than once
 		while(fileIn){
 			fileIn.get(ch);
 			buffer.push_back(ch);
@@ -28,7 +29,6 @@ bool TextParse::loadFile(){
 	}
 	return success;
 }
-
 bool TextParse::dataParse(){
 	if(!buffer.empty()){
 		char ch;
@@ -48,7 +48,7 @@ bool TextParse::dataParse(){
 					}
 				}
 				if(buff.empty()){
-					std::cout<<" Syntax error ["<<configLine<<"] : missing key data [ <text missing> ] \n";
+					std::cout<<" Syntax error ["<<configLine<<"] : Incomplete data [ <text missing> ] \n";
 					return failed;
 				}
 				/* push buff string to configKey : <example> */
@@ -62,7 +62,7 @@ bool TextParse::dataParse(){
 					ch=*i;
 				}
 				if(buff.empty()){
-					std::cout<<" Syntax error ["<<configLine<<"] : missing value data [ >text missing; ] \n";
+					std::cout<<" Syntax error ["<<configLine<<"] : Incomplete data [ >text missing; ] \n";
 					return failed;
 				}
 				/* push buff string to configValue : >example; */
@@ -72,7 +72,7 @@ bool TextParse::dataParse(){
 			}
 		}
 	} else {
-		std::cout<<"\n Buffer empty : "<<configFile<<" is not loaded or Empty";
+		std::cout<<"\n Warning : Buffer empty, "<<configFile<<" is not loaded or Empty";
 		return failed;
 	}
 	return success;
@@ -124,11 +124,73 @@ bool TextParse::showFormattedDataAll(){
 
 bool TextParse::showBuffer(){
 	std::cout<<" Buffer size : "<<buffer.size()<<" \n";
-	if(!buffer.empty()){ 
-		for (auto i = buffer.begin(); i != buffer.end(); ++i) 
-			std::cout << *i;	
+	if(!buffer.empty()){
+		if(!buffer_sort.empty()){
+			for (auto i = buffer_sort.begin(); i != buffer_sort.end(); ++i) 
+				std::cout << *i<<"\n"; //a line
+		} else {
+			for (auto i = buffer.begin(); i != buffer.end(); ++i) 
+				std::cout << *i; //a char
+		}
 	} else {
-		std::cout<<"\n Buffer empty : "<<configFile<<" is not loaded or Empty";
+		std::cout<<"\n Warning : Buffer empty, "<<configFile<<" is not loaded or Empty";
+		return failed;
+	}
+	return success;
+}
+
+bool TextParse::sortBuffer(){
+	if(!buffer.empty()){
+		char ch;
+		int configLine = 0;
+		buff="";
+		buffer_sort.clear(); //clears previous data
+		for (auto i = buffer.begin(); i != buffer.end(); ++i){
+			ch=*i;
+			if(ch=='<'){
+				while(i!=buffer.end()){
+					while(ch != ';'){
+						buff+=ch;
+						i++;
+						ch=*i;
+						if(ch == '<'){
+							std::cout<<" Syntax error ["<<configLine<<"] : missing ';' \n";
+							return failed;
+						}
+					}		
+					if(ch == ';'){
+						buff += ';';
+						buffer_sort.push_back(buff);
+						break;
+					}
+					if(buff.empty()){
+						std::cout<<" Syntax error ["<<configLine<<"] : Incomplete data [ <text missing here> and here; ] \n";
+						return failed;
+					}
+					
+				}
+			}
+			buff="";
+			configLine++;
+		}
+		std::stable_sort(buffer_sort.begin(),buffer_sort.end());
+	} else {
+		std::cout<<"\n Warning : Buffer empty, "<<configFile<<" is not loaded or Empty";
+		return failed;
+	}
+	return success;
+}
+
+bool TextParse::writeSortedConf(){
+	if(!buffer_sort.empty()){
+		std::ofstream fileOut;
+		fileOut.open("sorted_"+configFile);
+		for(auto i = buffer_sort.begin();i !=buffer_sort.end();++i){
+			fileOut<<*i<<"\n";
+		}
+		fileOut.close();
+	} else {
+		std::cout<<"\n Warning : Buffer not sorted ";
 		return failed;
 	}
 	return success;
