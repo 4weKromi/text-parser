@@ -6,11 +6,13 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 class TextParse{
 	std::string configFile;
 	std::string buff;
 	std::vector <char> buffer;
+	std::vector <std::string> buffer_sort;
 	std::vector <std::string> configKey;
 	std::vector <std::string> configValue;
 	const bool success = true, failed = false;
@@ -24,4 +26,6 @@ class TextParse{
 	std::string getConfigKey(int index);
 	bool showFormattedDataAll();
 	bool showBuffer();
+	bool sortBuffer();
+	bool writeSortedConf();
 };
