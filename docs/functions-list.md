@@ -57,3 +57,19 @@ string getConfigKey(int index);
 *Get the provided index data stored in key(vector).*
 
 ------
+```cpp
+bool sortBuffer();
+```
+* *return type boolean*
+
+*Sorts data from buffer to another buffer, that can be written to a file.*
+
+*using **std::stable_sort** (Merge sort)*
+
+------
+```cpp
+bool writeSortedConf();
+```
+* *return type boolean*
+
+*Writes data from the sorted buffer to a new file.*
