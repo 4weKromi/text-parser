@@ -22,6 +22,7 @@ class TextParse{
 	}
 	bool loadFile();
 	bool dataParse();
+	int getParseDataSize();
 	std::string getConfigValue(int index);
 	std::string getConfigKey(int index);
 	bool showFormattedDataAll();
