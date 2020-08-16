@@ -78,6 +78,14 @@ bool TextParse::dataParse(){
 	return success;
 }
 
+int TextParse::getParseDataSize(){
+	if(!configKey.empty()){
+		int sizeKey = configKey.size();
+		return sizeKey;
+	}
+	return 0;
+}
+
 std::string TextParse::getConfigValue(int index){	
 	int sizeValue = configValue.size();
 	if(!configKey.empty() && !configValue.empty()){
