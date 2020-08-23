@@ -54,6 +54,6 @@ bool sortBuffer();
 
 ------
 ```cpp
-bool writeSortedConf();
+bool writeSortedConf(std::string newFile);
 ```
 *Writes data from the sorted buffer to a new file.*
