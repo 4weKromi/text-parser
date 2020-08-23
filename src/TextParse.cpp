@@ -189,10 +189,10 @@ bool TextParse::sortBuffer(){
 	return success;
 }
 
-bool TextParse::writeSortedConf(){
+bool TextParse::writeSortedConf(std::string newFile){
 	if(!buffer_sort.empty()){
 		std::ofstream fileOut;
-		fileOut.open("sorted_"+configFile);
+		fileOut.open(newFile);
 		for(auto i = buffer_sort.begin();i !=buffer_sort.end();++i){
 			fileOut<<*i<<"\n";
 		}
