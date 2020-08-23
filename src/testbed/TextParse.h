@@ -28,5 +28,5 @@ class TextParse{
 	bool showFormattedDataAll();
 	bool showBuffer();
 	bool sortBuffer();
-	bool writeSortedConf();
+	bool writeSortedConf(std::string newFile);
 };
